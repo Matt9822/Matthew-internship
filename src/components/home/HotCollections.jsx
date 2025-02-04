@@ -35,6 +35,25 @@ const HotCollections = () => {
     return <div>Error: {error}</div>;
   }
 
+  const owlCarouselOptions = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 2,
+      },
+      800: {
+        items: 3,
+      },
+      1000: {
+        items: 4,
+      },
+    },
+  };
 
   return (
     <section id="section-collections" className="no-bottom">
@@ -46,7 +65,7 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <OwlCarousel className='owl-carousel owl-show' loop margin={10} nav>
+          <OwlCarousel className='owl-carousel owl-show' {...owlCarouselOptions}>
             {collections.map((elem, id) => (
               <div className="" key={id}>
                 <div className="nft_coll">
