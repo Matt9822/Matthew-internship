@@ -13222,6 +13222,10 @@ a.read_more i {
 }
 
 .nft_coll_info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   padding-bottom: 10px;
 }
 
