@@ -15,6 +15,7 @@ const NewItems = () => {
   const [error, setError] = useState(null);
   const [countdown, setCountdown] = useState({});
 
+
   function ArrowNext(props) {
     const { className, style, onClick } = props;
     return (
@@ -174,6 +175,7 @@ const NewItems = () => {
   );
 
   const renderNewItems = () => (
+
     <Slider {...settings}>
       {newItems.map((elem, id) => (
         <div className="nft__item" key={id}>
