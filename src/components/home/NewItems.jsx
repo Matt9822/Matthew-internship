@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
 import Skeleton from "../UI/Skeleton";
 import axios from "axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../../css/components-css/ReactSlickSlider.css"
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
@@ -12,6 +14,78 @@ const NewItems = () => {
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState(null);
   const [countdown, setCountdown] = useState({});
+
+
+  function ArrowNext(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`arrow ${className}`}
+        onClick={onClick}
+        style={{
+          ...style,
+          position: "absolute",
+          right: "-12px",
+          top: "50%",
+          display: "flex",
+        }}
+      >
+        <AiOutlineArrowRight className="arrows" style={{color:"black"}}/>
+      </div>
+    );
+  }
+  function ArrowPrev(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`arrow ${className}`}
+        style={{
+          ...style,
+          position: "absolute",
+          left: "-12px",
+          top: "50%",
+          display: "flex",
+        }}
+        onClick={onClick}
+      >
+        <AiOutlineArrowLeft className="arrows" style={{color:"black"}}/>
+      </div>
+    );
+  }
+
+  var settings = {
+    margin: 10,
+    dots: false,
+    infinite: true,
+    speed: 200,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    className:"slides",
+    nextArrow: <ArrowNext to="next"/>,
+    prevArrow: <ArrowPrev to="prev"/>,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,21 +131,9 @@ const NewItems = () => {
 
   const formatTimeLeft = (timeLeft) => {
     const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60)
-    const seconds = Math.floor((timeLeft / 1000) % 60)
-    return `${hours}h ${minutes}m ${seconds}s`
-  }
-
-  const owlCarouselOptions = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    responsive: {
-      0: { items: 1 },
-      530: { items: 2 },
-      800: { items: 3 },
-      1000: { items: 4 },
-    },
+    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+    const seconds = Math.floor((timeLeft / 1000) % 60);
+    return `${hours}h ${minutes}m ${seconds}s`;
   };
 
   if (error) {
@@ -113,7 +175,8 @@ const NewItems = () => {
   );
 
   const renderNewItems = () => (
-    <OwlCarousel className="owl-carousel owl-show" {...owlCarouselOptions}>
+
+    <Slider {...settings}>
       {newItems.map((elem, id) => (
         <div className="nft__item" key={id}>
           <div className="author_list_pp">
@@ -133,23 +196,6 @@ const NewItems = () => {
             ""
           )}
           <div className="nft__item_wrap">
-            {/* <div className="nft__item_extra">
-                    <div className="nft__item_buttons">
-                    <button>Buy Now</button>
-                    <div className="nft__item_share">
-                    <h4>Share</h4>
-                    <a href="" target="_blank" rel="noreferrer">
-                    <i className="fa fa-facebook fa-lg"></i>
-                    </a>
-                    <a href="" target="_blank" rel="noreferrer">
-                    <i className="fa fa-twitter fa-lg"></i>
-                    </a>
-                    <a href="">
-                    <i className="fa fa-envelope fa-lg"></i>
-                    </a>
-                    </div>
-                    </div>
-                    </div> f*/}
             <Link to="/item-details">
               <img
                 src={elem.nftImage}
@@ -175,7 +221,7 @@ const NewItems = () => {
           </div>
         </div>
       ))}
-    </OwlCarousel>
+    </Slider>
   );
 
   return (
