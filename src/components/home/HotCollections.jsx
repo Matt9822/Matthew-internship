@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
 import Skeleton from "../UI/Skeleton";
+import Slider from "react-slick";
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../../css/components-css/ReactSlickSlider.css"
 
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);
@@ -37,16 +39,75 @@ const HotCollections = () => {
     }
   }, [loading, collections]);
 
-  const owlCarouselOptions = {
-    loop: true,
+  function ArrowNext(props) {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={`arrow ${className}`}
+          onClick={onClick}
+          style={{
+            ...style,
+            position: "absolute",
+            right: "-12px",
+            top: "50%",
+            display: "flex",
+          }}
+        >
+          <AiOutlineArrowRight className="arrows" style={{color:"black"}}/>
+        </div>
+      );
+    }
+    function ArrowPrev(props) {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={`arrow ${className}`}
+          style={{
+            ...style,
+            position: "absolute",
+            left: "-12px",
+            top: "50%",
+            display: "flex",
+          }}
+          onClick={onClick}
+        >
+          <AiOutlineArrowLeft className="arrows" style={{color:"black"}}/>
+        </div>
+      );
+    }
+
+  var settings = {
     margin: 10,
-    nav: true,
-    responsive: {
-      0: { items: 1 },
-      600: { items: 2 },
-      800: { items: 3 },
-      1000: { items: 4 },
-    },
+    dots: false,
+    infinite: true,
+    speed: 200,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    className:"slides",
+    nextArrow: <ArrowNext to="next"/>,
+    prevArrow: <ArrowPrev to="prev"/>,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   if (error) {
@@ -83,7 +144,7 @@ const HotCollections = () => {
   );
 
   const renderCollections = () => (
-    <OwlCarousel className="owl-carousel owl-show" {...owlCarouselOptions}>
+    <Slider {...settings}>
       {collections.map((elem, id) => (
         <div className="" key={id}>
           <div className="nft_coll">
@@ -107,7 +168,7 @@ const HotCollections = () => {
           </div>
         </div>
       ))}
-    </OwlCarousel>
+    </Slider>
   );
 
   return (
