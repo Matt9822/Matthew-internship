@@ -14,6 +14,7 @@ const NewItems = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
   function ArrowNext(props) {
     const { className, style, onClick } = props;
     return (
@@ -106,6 +107,7 @@ const NewItems = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
 
   return (
     <section id="section-items" className="no-bottom">
