@@ -1,14 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-const Countdown = (elem) => {
+const Countdown = ({ expiryDate }) => {
 
-  const timeLeft = elem.expiryDate
-  const [timer, setTimer] = useState({})
+  // const timeLeft = elem.expiryDate
+  const [timeLeft, setTimeLeft] = useState("")
 
+  useEffect(() => {
+    if(!expiryDate) return;
 
-  return (
-    <div className="de_countdown">{Countdown()}</div>
-  )
-}
+    const interval = setInterval(() => {
+      const remainingTime = new Date(expiryDate).getTime() - Date.now()
+      if (remainingTime <= 0){
+        setTimeLeft("Expired")
+        clearInterval(interval)
+        return;
+      }
+        const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((remainingTime / (1000 * 60)) % 60);
+        const seconds = Math.floor((remainingTime / 1000) % 60);
+        setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+    }, 1000);
+  
+      return () => clearInterval(interval);
+    }, [expiryDate]);
+
+    if(!expiryDate) return null
+
+    return <div className="de_countdown">{timeLeft}</div>
+    
+  };
 
 export default Countdown
