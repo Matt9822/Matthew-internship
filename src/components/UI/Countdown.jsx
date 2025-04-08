@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 const Countdown = ({ expiryDate }) => {
 
-  // const timeLeft = elem.expiryDate
   const [timeLeft, setTimeLeft] = useState("")
 
   useEffect(() => {
