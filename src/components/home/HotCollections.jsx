@@ -7,6 +7,7 @@ import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../css/components-css/ReactSlickSlider.css"
+import api from "../UI/Api";
 
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);
@@ -15,21 +16,20 @@ const HotCollections = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchNewItems = async () => {
       try {
-        const response = await axios.get(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
-        );
-        setCollections(response.data);
-      } catch (error) {
-        setError(error.message);
-        console.error("Error fetching collections:", error.message);
+        setLoading(true);
+        const data = await api.get("/hotCollections");
+        setCollections(data);
+        setError(null);
+      } catch (err) {
+        setError(err.message || "Failed to load new items");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchNewItems();
   }, []);
 
  
