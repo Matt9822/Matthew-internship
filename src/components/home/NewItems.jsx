@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
-import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../css/components-css/ReactSlickSlider.css";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import Countdown from "../UI/Countdown";
+import api from "../UI/Api";
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
@@ -87,21 +87,20 @@ const NewItems = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchNewItems = async () => {
       try {
-        const response = await axios.get(
-          `https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems`
-        );
-        setNewItems(response.data);
-      } catch (error) {
-        setError(error.message);
-        console.error("Error fetching NewItems:", error.message);
+        setLoading(true);
+        const data = await api.get("/newItems");
+        setNewItems(data);
+        setError(null);
+      } catch (err) {
+        setError(err.message || "Failed to load new items");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchNewItems();
   }, []);
 
   if (error) {
