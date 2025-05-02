@@ -5,13 +5,13 @@ import Skeleton from "../UI/Skeleton";
 import Countdown from "../UI/Countdown";
 
 const ExploreItems = () => {
-  const button = document.querySelector("#loadmorebutton")
+  const button = document.querySelector("#loadmorebutton");
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [explore, setExplore] = useState([]);
-  const [itemsPerPage, setItemsPerPage] = useState(8)
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [error, setError] = useState(null);
-  
+
   const filterOption = (event) => {
     setFilter(`${event.target.value}`);
   };
@@ -38,16 +38,16 @@ const ExploreItems = () => {
   }
 
   const bitch = () => {
-    setItemsPerPage(itemsPerPage + 4) 
-      if(itemsPerPage >= 12){
-        button.style.display = 'none'
-      }
-  }
+    setItemsPerPage(itemsPerPage + 4);
+    if (itemsPerPage >= 12) {
+      button.style.display = "none";
+    }
+  };
 
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue=""onChange={filterOption}>
+        <select id="filter-items" defaultValue="" onChange={filterOption}>
           <option value="">Default</option>
           <option value="filter=price_low_to_high">Price, Low to High</option>
           <option value="filter=price_high_to_low">Price, High to Low</option>
@@ -108,7 +108,7 @@ const ExploreItems = () => {
                     <i className="fa fa-check"></i>
                   </Link>
                 </div>
-                <Countdown expiryDate={elem.expiryDate}/>
+                <Countdown expiryDate={elem.expiryDate} />
                 <div className="nft__item_wrap">
                   <Link to="/item-details">
                     <img
@@ -133,7 +133,11 @@ const ExploreItems = () => {
           ))}
         </div>
       )}
-      <div id="loadmorebutton" className="col-md-12 text-center" onClick={bitch}>
+      <div
+        id="loadmorebutton"
+        className="col-md-12 text-center"
+        onClick={bitch}
+      >
         <Link to="" id="loadmore" className="btn-main lead">
           Load more
         </Link>
