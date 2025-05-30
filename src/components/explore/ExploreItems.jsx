@@ -37,7 +37,7 @@ const ExploreItems = () => {
     return <div>Error: {error}</div>;
   }
 
-  const bitch = () => {
+  const selectPage = () => {
     setItemsPerPage(itemsPerPage + 4);
     if (itemsPerPage >= 12) {
       button.style.display = "none";
@@ -136,7 +136,7 @@ const ExploreItems = () => {
       <div
         id="loadmorebutton"
         className="col-md-12 text-center"
-        onClick={bitch}
+        onClick={selectPage}
       >
         <Link to="" id="loadmore" className="btn-main lead">
           Load more
