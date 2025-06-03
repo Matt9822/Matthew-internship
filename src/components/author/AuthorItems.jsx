@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const AuthorItems = ({userData}) => {
-  // console.log(userData)
   return (
     <div className="de_tab_content">
       <div className="tab-1">
@@ -34,7 +33,7 @@ const AuthorItems = ({userData}) => {
                       </div>
                     </div>
                   </div>
-                  <Link to="/item-details">
+                  <Link to={`/item-details/${user.nftId}`}>
                     <img
                       src={user.nftImage}
                       className="lazy nft__item_preview"
@@ -43,7 +42,7 @@ const AuthorItems = ({userData}) => {
                   </Link>
                 </div>
                 <div className="nft__item_info">
-                  <Link to="/item-details">
+                  <Link to={`/item-details/${user.nftId}`}>
                     <h4>{user.title}</h4>
                   </Link>
                   <div className="nft__item_price">{user.price}</div>
