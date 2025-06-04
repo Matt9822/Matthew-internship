@@ -26,6 +26,10 @@ const Author = () => {
     fetchAuthor();
   }, [profileId]);
 
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
 
   const followButton = () => {
     if (following) {
