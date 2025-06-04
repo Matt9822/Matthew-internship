@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../UI/Api";
 import Skeleton from "../UI/Skeleton";
 import Countdown from "../UI/Countdown";
+import Animate from "../UI/Animate";
 
 const ExploreItems = () => {
   const button = document.querySelector("#loadmorebutton");
@@ -11,6 +12,7 @@ const ExploreItems = () => {
   const [explore, setExplore] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [error, setError] = useState(null);
+  Animate()
 
   const filterOption = (event) => {
     setFilter(`${event.target.value}`);
@@ -63,6 +65,7 @@ const ExploreItems = () => {
                 key={index}
                 className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
                 style={{ display: "block", backgroundSize: "cover" }}
+                data-aos="fade-up" data-aos-duration="2000"
               >
                 <div className="nft__item">
                   <div className="author_list_pp">

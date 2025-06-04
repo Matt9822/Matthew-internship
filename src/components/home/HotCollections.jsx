@@ -7,12 +7,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../css/components-css/ReactSlickSlider.css"
 import api from "../UI/Api";
+import Animate from "../UI/Animate";
 
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isReady, setIsReady] = useState(false);
+  Animate()
 
   useEffect(() => {
     const fetchNewItems = async () => {
@@ -146,7 +148,7 @@ const HotCollections = () => {
     <Slider {...settings}>
       {collections.map((elem, id) => (
         <div className="" key={id}>
-          <div className="nft_coll">
+          <div className="nft_coll" data-aos="fade-in" data-aos-duration="1000">
             <div className="nft_wrap">
               <Link to={`/item-details/${elem.nftId}`}>
                 <img src={elem.nftImage} className="lazy img-fluid" alt="" />
@@ -175,7 +177,7 @@ const HotCollections = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-in" data-aos-duration="800">
               <h2>Hot Collections</h2>
               <div className="small-border bg-color-2"></div>
             </div>

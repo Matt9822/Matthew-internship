@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "../UI/Skeleton";
+import Animate from "../UI/Animate";
 
 const TopSellers = () => {
   const [topSellersData, setTopSellersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  Animate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,13 +55,13 @@ const TopSellers = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-in" data-aos-duration="800">
               <h2>Top Sellers</h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
           <div className="col-md-12">
-            <ol className="author_list">
+            <ol className="author_list" data-aos="fade-in" data-aos-duration="1000">
               {!loading
                 ? renderNewItems()
                 : new Array(12).fill(0).map((_, index) => (
